@@ -1,9 +1,9 @@
 server:
   port: 8888
-  context-path: /msg
+  context-path: /cmfz
   jsp-servlet:
     init-parameters:
-      developments: true
+      development: true
 spring:
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
