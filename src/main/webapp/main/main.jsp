@@ -5,63 +5,50 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>持名法州主页</title>
     <link rel="stylesheet" type="text/css" href="../themes/default/easyui.css">
-    <link rel="stylesheet" type="text/css" href="../themes/IconExtension.css">
+    <link rel="stylesheet" type="text/css" href="../themes/icon.css">
     <script type="text/javascript" src="../js/jquery.min.js"></script>
     <script type="text/javascript" src="../js/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../js/datagrid-detailview.js"></script>
+    <script type="text/javascript" src="../js/jquery.edatagrid.js"></script>
     <script type="text/javascript" src="../js/easyui-lang-zh_CN.js"></script>
     <script type="text/javascript">
         <!--菜单处理-->
-        function title(list) {
-            console.log(list)
-            if (list.length != 0) {
-                var str = "";
-                for (var i = 0; i < list.length; i++) {
-                    console.log(list[i].title)
-                    str = str + "<a href=''>" + list[i].title + "</a><br>";
+        $(function () {
+            $.ajax({
+                type: "post",
+                url: "${pageContext.request.contextPath}/menu/queryAll",
+                dataType: "JSON",
+                success: function (data) {
+                    $.each(data, function (index, first) {
+                        var a = "";
+                        $.each(first.list, function (index1, second) {
+                            a += "<p style='text-align: center'> <a id=\"btn\" href=\"#\" class=\"easyui-linkbutton\" onclick=\"addTabs('" + second.title + "','" + second.iconCls + "','" + second.url + "')\" data-options=\"iconCls:'icon-search'\">" + second.title + "</a></p>";
+                        })
+                        $("#menu").accordion("add", {
+                            title: first.title,
+                            iconCls: "icon-sava",
+                            content: a,
+                            selected: false
+                        })
+                    })
                 }
-                return str;
+            })
+        })
+
+        function addTabs(title, iconCls, url) {
+            var a = $("#tt").tabs("exists", title)
+            if (a) {
+                $("#tt").tabs("select", title)
             } else {
-                return "<a href=''>空</a>"
+                $('#tt').tabs('add', {
+                    title: title,
+                    iconCls: iconCls,
+                    href: "${pageContext.request.contextPath}" + url,
+                    selected: true,
+                    closable: true
+                });
             }
         }
-
-        <%--function selectTab(name,icons,href){--%>
-        <%--//如果已经存在则选中--%>
-        <%--if($("#tt").tabs("exists",name)){--%>
-        <%--//选中--%>
-        <%--$("#tt").tabs("select",name);--%>
-        <%--}else{--%>
-        <%--//如果不存在则创建--%>
-        <%--$("#tt").tabs("add",{--%>
-        <%--title:name,--%>
-        <%--iconCls:icons,--%>
-        <%--closable:true,--%>
-        <%--href:"${pageContext.request.contextPath}/back/"+href--%>
-        <%--});--%>
-        <%--}--%>
-        <%--}--%>
-        $(function () {
-            $.post(
-                "${pageContext.request.contextPath}/menu/queryAll",
-                function (result) {
-                    // console.log(result)
-                    //console.log(result[0].list.length)
-                    for (var i = 0; i < result.length; i++) {
-                        console.log("result[i].id=" + result[i].id + "   result[i].title" + result[i].title)
-                        $("#menu").accordion("add", {
-                            //title:"新标题",
-                            title: result[i].title,
-                            //content:"新内容",
-                            content: title(result[i].list),
-                            selected: false
-                        });
-                    }
-
-                },
-                "JSON"
-            )
-
-        })
     </script>
 
 </head>

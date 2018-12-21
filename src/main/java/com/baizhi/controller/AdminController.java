@@ -23,9 +23,9 @@ public class AdminController {
             session.setAttribute("admin", admin);
             return "main/main";
         }
-
     }
 
+    @RequestMapping("quit")
     public String quit(HttpSession session) {//退出
         adminService.quit(session);
         return "success";

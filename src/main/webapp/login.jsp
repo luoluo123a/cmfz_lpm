@@ -19,12 +19,35 @@
             $("#captchaImage").click(function () {//点击更换验证码
                 $("#captchaImage").prop("src", "${pageContext.request.contextPath }/img/createImg?" + new Date());
             });
-
-            //  form 表单提交
-            // $("#loginForm").bind("submit",function(){
-            // 	alert("自己做");
-            // 	return false;
-            // });
+            //验证
+            $("#enCode").blur(function () {
+                var code = $("#enCode").val();
+                $.ajax({
+                    type: "POST",
+                    url: "${pageContext.request.contextPath }/img/checkCode",
+                    data: "code=" + code,
+                    dataType: "json",
+                    success: function (result) {
+                        if (result === "error") {
+                            $("#enCode").focus();
+                            $("#uspan").text("验证码错误");
+                            location.href = "${pageContext.request.contextPath}/login.jsp";
+                        }
+                    }
+                });
+            });
+            $("#name").blur(function () {
+                if ($("#name").val() == "") {
+                    $("#name").focus();
+                    $("#uspan").text("账号不能为空");
+                }
+            });
+            $("#pwd").blur(function () {
+                if ($("#pwd").val() == "") {
+                    $("#pwd").focus();
+                    $("#uspan").text("密码不能为空");
+                }
+            });
         });
     </script>
 </head>
@@ -43,7 +66,7 @@
                     用户名:
                 </th>
                 <td>
-                    <input type="text" name="name" class="text" value="xxx" maxlength="20"/>
+                    <input id="name" type="text" name="name" class="text" maxlength="20"/>
                 </td>
             </tr>
             <tr>
@@ -51,7 +74,7 @@
                     密&nbsp;&nbsp;&nbsp;码:
                 </th>
                 <td>
-                    <input type="password" name="pwd" class="text" value="xxx" maxlength="20" autocomplete="off"/>
+                    <input id="pwd" type="password" name="pwd" class="text" maxlength="20" autocomplete="off"/>
                 </td>
             </tr>
 
@@ -73,7 +96,7 @@
                 </th>
             </tr>
             <tr>
-                <td>&nbsp;</td>
+                <td>&nbsp;<span id="uspan"></span></td>
                 <th>&nbsp;</th>
                 <td>
                     <input type="button" class="homeButton" value="" onclick="location.href='/'"><input type="submit"
