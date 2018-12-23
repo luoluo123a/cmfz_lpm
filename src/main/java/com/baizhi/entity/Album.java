@@ -8,23 +8,26 @@ import org.springframework.format.annotation.DateTimeFormat;
 import tk.mybatis.mapper.annotation.KeySql;
 
 import javax.persistence.Id;
-import javax.persistence.Table;
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "banner")
-public class Banner implements Serializable {
+public class Album implements Serializable {
     @Id
     @KeySql(useGeneratedKeys = true)
     private Integer id;
     private String title;
-    private String img_path;
-    private String status;
+    private Integer count;//数量
+    private String coverimg;//封面
+    private Double score;//评分
+    private String author;//作者
+    private String broadcast;//播音
+    private String brief;//简介
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     @JSONField(format = "yyyy-MM-dd")
-    private Date pub_date;
-    private String des;
+    private Date pubdate;//发布日期
+    private List<Chapter> children;
 }
