@@ -1,5 +1,6 @@
 package com.baizhi.service;
 
+import com.baizhi.dto.AlbumPage;
 import com.baizhi.entity.Album;
 import com.baizhi.mapper.AlbumMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,5 +32,16 @@ public class AlbumServiceImpl implements AlbumService {
     @Override
     public void insertAlbum(Album album) {
         albumMapper.insert(album);
+    }
+
+    @Override
+    @Transactional(propagation = Propagation.SUPPORTS)
+    public AlbumPage queryByPage(int curPage, int pageSize) {
+        AlbumPage dto = new AlbumPage();
+        //设置总行数
+        dto.setTotal(albumMapper.TotalCount());
+        //设置当前页的数据行
+        dto.setRows(albumMapper.queryByPage(curPage, pageSize));
+        return dto;
     }
 }

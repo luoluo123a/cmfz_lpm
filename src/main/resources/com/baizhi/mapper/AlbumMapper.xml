@@ -42,4 +42,32 @@
                  left JOIN chapter s
                            ON s.albumid = f.id
     </select>
+    <select id="queryByPage" resultMap="r1">
+        select f.id        fid,
+               f.title     ftitle,
+               f.count     fcount,
+               f.coverimg  fcoverimg,
+               f.score     fscore,
+               f.author    fauthor,
+               f.broadcast fbroadcast,
+               f.brief     fbrief,
+               f.pubdate   fpubdate,
+               s.id        sid,
+               s.title     stitle,
+               s.size      ssize,
+               s.duration  sduration,
+               s.url       surl,
+               s.upddate   supddate,
+               s.albumid   salbumid
+        from (select *
+              from album LIMIT
+                   ${(curPage-1)*pageSize},
+                   ${pageSize}) f
+                 left JOIN chapter s
+                           ON s.albumid = f.id
+    </select>
+    <select id="TotalCount" resultType="int">
+        select count(*)
+        from album
+    </select>
 </mapper>

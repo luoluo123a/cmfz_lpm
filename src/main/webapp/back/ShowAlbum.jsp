@@ -63,7 +63,7 @@
             iconCls: 'icon-add',
             text: '导入',
             handler: function () {
-                location.href = "${pageContext.request.contextPath}/poi/testImport"
+                location.href = "${pageContext.request.contextPath}/poi/userImport"
             }
         }, '-', {
             iconCls: 'icon-add',
@@ -73,7 +73,7 @@
             }
         }]
         $('#album').treegrid({
-            url: '${pageContext.request.contextPath}/album/queryAll',
+            url: '${pageContext.request.contextPath}/album/queryByPage',
             idField: 'id',
             treeField: 'title',
             columns: [[
@@ -96,10 +96,10 @@
             },
             toolbar: toolbar,
             fitColumns: true,
-            fit: true
-            // pagination: true,
-            // pageSize: 3,
-            // pageList: [3, 5, 8]
+            fit: true,
+            pagination: true,
+            pageSize: 3,
+            pageList: [3, 5, 8]
         });
     })
     $("#SeleAlbum").dialog({

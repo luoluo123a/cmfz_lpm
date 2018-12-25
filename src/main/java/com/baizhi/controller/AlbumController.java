@@ -1,5 +1,6 @@
 package com.baizhi.controller;
 
+import com.baizhi.dto.AlbumPage;
 import com.baizhi.entity.Album;
 import com.baizhi.service.AlbumService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,5 +47,13 @@ public class AlbumController {
         // 上传
         fi2.transferTo(descFile);
         albumService.insertAlbum(album);
+    }
+
+    @RequestMapping("queryByPage")
+    public AlbumPage queryByPage(int page, int rows) {
+        AlbumPage dto = albumService.queryByPage(page, rows);
+        System.out.println(dto.getRows());
+        return dto;
+
     }
 }
