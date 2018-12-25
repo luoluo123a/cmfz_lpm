@@ -2,6 +2,7 @@ package com.baizhi.controller;
 
 import com.baizhi.entity.Chapter;
 import com.baizhi.service.ChapterService;
+import com.baizhi.util.Audioutil;
 import org.apache.commons.io.FileUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,9 @@ public class ChapterController {
 
     @RequestMapping("insertChapter")
     public void insertChapter(Chapter chapter, MultipartFile fi3, HttpSession session) throws Exception {
+        long size = fi3.getSize();
+        double v = size / (1024 * 1024.0);
+        chapter.setSize(v);
         ServletContext ctx = session.getServletContext();
         // 上传路径
         String realPath = ctx.getRealPath("/music");
@@ -33,6 +37,10 @@ public class ChapterController {
         chapter.setUrl("/music/" + src);
         // 上传
         fi3.transferTo(descFile);
+        long duration = Audioutil.getDuration(new File(realPath + "/" + src));
+        int m = (int) (duration / 60);
+        int s = (int) (duration % 60);
+        chapter.setDuration(m + "分" + s + "秒");
         chapterService.insertChapter(chapter);
     }
 

@@ -8,9 +8,15 @@
                 //获取选中行
                 var row = $("#album").edatagrid("getSelected");
                 if (row != null) {
-                    $("#SeleAlbum").dialog("open");
-                    $("#SeleForm").form("load",
-                        "${pageContext.request.contextPath}/album/queryById?id=" + row.id);
+                    if (row.duration != null) {
+                        $.messager.alert('我的消息', '请先选中专辑！', 'info');
+                    } else {
+                        $("#SeleAlbum").dialog("open");
+                        $("#SeleForm").form("load", row);
+                        $("#Scoverimg").prop("src", "${pageContext.request.contextPath}/" + row.coverimg);
+
+                    }
+
                 } else {
                     $.messager.alert('我的消息', '请先选中行！', 'info');
                 }
@@ -53,6 +59,18 @@
                     $.messager.alert('我的消息', '请先选中章节！', 'info');
                 }
             }
+        }, '-', {
+            iconCls: 'icon-add',
+            text: '导入',
+            handler: function () {
+                location.href = "${pageContext.request.contextPath}/poi/testImport"
+            }
+        }, '-', {
+            iconCls: 'icon-add',
+            text: '导出',
+            handler: function () {
+                location.href = "${pageContext.request.contextPath}/poi/testExport"
+            }
         }]
         $('#album').treegrid({
             url: '${pageContext.request.contextPath}/album/queryAll',
@@ -78,7 +96,10 @@
             },
             toolbar: toolbar,
             fitColumns: true,
-            fit: true,
+            fit: true
+            // pagination: true,
+            // pageSize: 3,
+            // pageList: [3, 5, 8]
         });
     })
     $("#SeleAlbum").dialog({
@@ -113,18 +134,37 @@
 <table id="album"></table>
 <div id="AddAlbum"></div>
 <div id="AddChapter"></div>
-<div id="SeleAlbum">
+<div id="SeleAlbum" class="easyui-dialog" title="My Dialog" style="width:400px;height:200px;"
+     data-options="iconCls:'icon-save',resizable:true,modal:true,closed:true">
+
     <form id="SeleForm" method="post">
-        id：<input id="Sid" name="id" readonly/></br>
-        名称:<input id="Stitle" name="title" readonly/></br>
-        数量:<input id="Scount" name="count" readonly/></br>
-        图片路径:<input id="Scoverimg" name="coverimg" readonly/></br>
-        分数:<input id="Sscore" name="score" readonly/></br>
-        作者:<input id="Sauthor" name="author" readonly/></br>
-        播音:<input id="Sbroadcast" name="broadcast" readonly/></br>
-        简介:<input id="Sbrief" name="brief" readonly/></br>
-        发布日期:<input id="Spubdate" name="pubdate" readonly/></br>
+        <div>
+            <input class="easyui-validatebox" type="text" name="title" data-options="required:true"/>
+        </div>
+        <div>
+            <input class="easyui-validatebox" type="text" name="count" data-options="required:true"/>
+        </div>
+        <div>
+            <input class="easyui-validatebox" type="text" name="score" data-options="required:true"/>
+        </div>
+        <div>
+            <input class="easyui-validatebox" type="text" name="author" data-options="required:true"/>
+        </div>
+        <div>
+            <input class="easyui-validatebox" type="text" name="brief" data-options="required:true"/>
+        </div>
+        <div>
+            <input class="easyui-validatebox" type="text" name="broadcast" data-options="required:true"/>
+        </div>
+        <div>
+            <input class="easyui-validatebox" type="text" name="pubdate" data-options="required:true"/>
+        </div>
+        <div>
+            <img src="" id="Scoverimg">
+        </div>
     </form>
+
+</div>
 </div>
 <audio id="audio" autoplay controls></audio>
 

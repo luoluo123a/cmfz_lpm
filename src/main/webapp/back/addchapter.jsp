@@ -60,8 +60,8 @@
 </script>
 <form id="AddChapterForm" enctype="multipart/form-data" method="post">
     名称:<input id="AddChaptertitle" name="title"/></br>
-    大小:<input id="AddChaptersize" name="size"/></br>
-    时长:<input id="AddChapterduration" name="duration"/></br>
+    <%--大小:<input id="AddChaptersize" name="size"/></br>--%>
+    <%--时长:<input id="AddChapterduration" name="duration"/></br>--%>
     音频:<input type="file" name="fi3"/></td></br>
     上传日期:<input id="AddChapterupddate" name="upddate"/></br>
     <input id="AddChapteralbumid" name="albumid" hidden/></br>

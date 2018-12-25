@@ -18,6 +18,7 @@ public class AlbumServiceImpl implements AlbumService {
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
     public List<Album> queryAll() {
+        //PageHelper.startPage(1,2);
         List<Album> albums = albumMapper.queryAll();
         return albums;
     }

@@ -38,11 +38,11 @@ public class AlbumController {
     public void insertAlbum(Album album, MultipartFile fi2, HttpSession session) throws IllegalStateException, IOException {
         ServletContext ctx = session.getServletContext();
         // 上传路径
-        String realPath = ctx.getRealPath("/alu");
+        String realPath = ctx.getRealPath("\\file");
         // 目标文件
         String src = fi2.getOriginalFilename();
         File descFile = new File(realPath + "/" + src);
-        album.setCoverimg("/alu/" + src);
+        album.setCoverimg("\\file\\" + src);
         // 上传
         fi2.transferTo(descFile);
         albumService.insertAlbum(album);

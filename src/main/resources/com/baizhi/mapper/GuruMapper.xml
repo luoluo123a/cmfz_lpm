@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.mapper.GuruMapper">
+    <resultMap type="com.baizhi.entity.Guru" id="r1">
+        <id column="fid" property="id"></id>
+        <result column="fdharma" property="dharma"></result>
+        <result column="fheadpic" property="headpic"></result>
+        <result column="fstatus" property="status"></result>
+        <collection property="children" ofType="com.baizhi.entity.Article">
+            <id column="sid" property="id"/>
+            <result column="stitle" property="title"></result>
+            <result column="sinsertimg" property="insertimg"></result>
+            <result column="content" property="content"></result>
+            <result column="spubdate" property="pubdate"></result>
+            <result column="sguruid" property="guruid"></result>
+        </collection>
+    </resultMap>
+    <select id="queryAll" resultMap="r1">
+        select f.id        fid,
+               f.dharma    fdharma,
+               f.headpic   fheadpic,
+               f.status    fstatus,
+               s.id        sid,
+               s.title     stitle,
+               s.insertimg sinsertimg,
+               s.content   scontent,
+               s.pubdate   spubdate,
+               s.guruid    sguruid
+        from guru f
+                 left JOIN article s
+                           ON s.guruid = f.id
+    </select>
+</mapper>
