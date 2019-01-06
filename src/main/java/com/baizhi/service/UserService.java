@@ -6,9 +6,11 @@ import com.baizhi.entity.User;
 import java.util.List;
 
 public interface UserService {
-    public List<Integer> queryCountM(Integer day);
+    public List<Integer> queryCountM();
 
     public List<UserDto> queryProvince();
 
     public List<User> queryAll();
+
+    public void regist(User user);
 }

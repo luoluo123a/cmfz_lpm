@@ -36,4 +36,21 @@
             })
         }
     })
+    var goEasy = new GoEasy({
+        appkey: "BC-a36c38bc99ab4be39f74d7840201943e"
+    });
+    goEasy.subscribe({
+        channel: "140",
+        onMessage: function (message) {
+            var eval1 = eval("(" + message.content + ")");
+            myChart.setOption({
+                series: [{
+                    // 根据名字对应到相应的系列
+                    name: '人数',
+                    data: eval1,
+                    type: "line"
+                }]
+            })
+        }
+    });
 </script>

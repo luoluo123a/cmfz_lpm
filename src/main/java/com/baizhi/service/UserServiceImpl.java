@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     @Transactional(propagation = Propagation.SUPPORTS)
-    public List<Integer> queryCountM(Integer day) {
+    public List<Integer> queryCountM() {
         List<Integer> list = new ArrayList<>();
         list.add(userMapper.queryCountM(90));
         list.add(userMapper.queryCountM(7));
@@ -40,5 +40,10 @@ public class UserServiceImpl implements UserService {
     public List<User> queryAll() {
         List<User> users = userMapper.selectAll();
         return users;
+    }
+
+    @Override
+    public void regist(User user) {
+        userMapper.insert(user);
     }
 }

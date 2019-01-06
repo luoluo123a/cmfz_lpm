@@ -72,6 +72,31 @@ public class PoiController {
 
     @RequestMapping("userImport")
     public void userImport() {
+//        try {
+//            Workbook workbook = new HSSFWorkbook(new FileInputStream(new File("C:\\Users\\Administrator\\Downloads\\user.xls")));
+//            Sheet sheet = workbook.getSheet("user");
+//            int lastRowNum = sheet.getLastRowNum();
+//            for (int i = 1; i < lastRowNum + 1; i++) {
+//                Row row = sheet.getRow(i);
+//                double id = row.getCell(0).getNumericCellValue();
+//                String phone = row.getCell(1).getStringCellValue();
+//                String salt = row.getCell(2).getStringCellValue();
+//                String sign = row.getCell(3).getStringCellValue();
+//                String headpic = row.getCell(4).getStringCellValue();
+//                String name = row.getCell(5).getStringCellValue();
+//                String dharma = row.getCell(6).getStringCellValue();
+//                double sex = row.getCell(7).getNumericCellValue();
+//                String province = row.getCell(8).getStringCellValue();
+//                String city = row.getCell(9).getStringCellValue();
+//                String status = row.getCell(10).getStringCellValue();
+//                Date regdate = row.getCell(11).getDateCellValue();
+//                User user = new User((int)id,phone,salt,sign,headpic,name,dharma,(int)sex,province,city,status,regdate);
+//                System.out.println(user);
+//            }
+//
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
         ImportParams params = new ImportParams();
         params.setTitleRows(1);   //表格标题行数
         params.setHeadRows(1);   //表头行数

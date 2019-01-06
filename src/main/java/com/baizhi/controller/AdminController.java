@@ -20,9 +20,10 @@ public class AdminController {
         if (admin == null) {
             return "redirect:/login.jsp";
         } else {
-            session.setAttribute("admin", admin);
+            session.setAttribute("admin", name);
             return "main/main";
         }
+
     }
 
     @RequestMapping("quit")

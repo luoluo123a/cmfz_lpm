@@ -13,7 +13,7 @@ import java.util.Date;
 @NoArgsConstructor
 public class Article implements Serializable {
     @Id
-    private String id;
+    private Integer id;
     private String title;
     private String insertimg;
     private String content;

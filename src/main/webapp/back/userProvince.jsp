@@ -1,10 +1,12 @@
 <%@page pageEncoding="UTF-8" %>
 
 <!-- 为 ECharts 准备一个具备大小（宽高）的 DOM -->
-<div id="main" style="width: 600px;height:400px;"></div>
+<div id="main1" style="width: 600px;height:400px;"></div>
+<script type="text/javascript" src="http://cdn-hangzhou.goeasy.io/goeasy.js"></script>
 
 <script type="text/javascript">
-    var myChart = echarts.init(document.getElementById('main'));
+    $(function () {
+        var myMap = echarts.init(document.getElementById('main1'));
 
     option = {
         title: {
@@ -40,12 +42,12 @@
             }
         }
     };
-    myChart.setOption(option)
+        myMap.setOption(option)
     $.ajax({
         url: "${pageContext.request.contextPath}/user/queryProvince",
         dataType: "JSON",
         success: function (data) {
-            myChart.setOption({
+            myMap.setOption({
                 series: [{
                     name: '用户数量',
                     type: 'map',
@@ -63,5 +65,13 @@
                 }]
             })
         }
+    })
+        // var goEasy = new GoEasy({
+        //     appkey: "BC-a36c38bc99ab4be39f74d7840201943e"
+        // });
+        // goEasy.publish({
+        //     channel: "140",
+        //     message: "Hello, GoEasy!"
+        // })
     })
 </script>

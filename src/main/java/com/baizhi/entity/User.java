@@ -24,7 +24,7 @@ public class User implements Serializable {
     private String salt;
     @Excel(name = "标识")
     private String sign;
-    @Excel(name = "头像", type = 2)
+    @Excel(name = "头像")
     private String headpic;
     @Excel(name = "名字")
     private String name;
