@@ -1,5 +1,5 @@
-<%@ page pageEncoding="UTF-8" %>
 
+<%@ page pageEncoding="UTF-8" %>
 <script type="text/javascript">
     $(function () {
         $("#AddTitle").validatebox({
